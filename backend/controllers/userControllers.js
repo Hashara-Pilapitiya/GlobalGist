@@ -1,5 +1,5 @@
 //Register a new user
-const registerUser = (req, res, next) => {
+const registerUser = (req, res) => {
     res.json("Register a new user");
 };
 
