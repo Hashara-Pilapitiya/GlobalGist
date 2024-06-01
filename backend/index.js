@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const upload = require('express-fileupload');
 
 const userRoutes = require('./routes/userRoutes');
 const postRoutes = require('./routes/postRoutes');
@@ -16,6 +17,8 @@ dotenv.config();
 app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 app.use(express.json({extended: true}));
 app.use(express.urlencoded({ extended: true }));
+app.use(upload());
+app.use('/uploads', express.static(__dirname + '/uploads'));
 
 
 const PORT = process.env.PORT || 5000;

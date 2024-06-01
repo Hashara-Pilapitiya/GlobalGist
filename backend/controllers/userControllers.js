@@ -1,5 +1,8 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const fs = require("fs");
+const path = require("path");
+const { v4: uuid } = require("uuid");
 
 const HTTPError = require("../models/errorModel.js");
 const User = require("../models/userModel.js");
@@ -109,9 +112,57 @@ const getUsers = async(req, res, next) => {
 
 
 
+
+
+
+
 //Update user profile(only profile picture)
-const changePicture = async(req, res) => {
-    res.json("Update user profile picture");
+const changePicture = async(req, res, next) => {
+    try {
+       if(!req.files.picture) {
+           return next(new HTTPError("Please choose an image.", 422));
+       }
+
+       //Find user from the database
+       const user = await User.findById(req.user.id);
+
+       //Delete old profile picture
+       if(user.picture) {
+           fs.unlinkSync(path.join(__dirname, '..', 'uploads', user.picture), (err) => {
+               if (err) {
+                  return next(new HTTPError(err.message, 404));
+               }
+            })
+      }
+
+        const { picture } = req.files;  
+
+        //Check if the image is less than 500000 bytes
+        if (picture.size > 500000) {
+            return next(new HTTPError("Image should be less than 500KB.", 422));
+        }
+
+        let fileName;
+        fileName = picture.name;
+        let splittedFileName = fileName.split(".");
+        let newFileName = splittedFileName[0] + uuid() + "." + splittedFileName[splittedFileName.length - 1];
+        picture.mv(path.join(__dirname, '..', 'uploads', newFileName), async(err) => {
+            if (err) {
+                return next(new HTTPError(err.message, 404));
+            }
+
+            const updatedPicture = await User.findByIdAndUpdate(req.user.id, { picture: newFileName }, { new: true });
+            if (!updatedPicture) {
+                return next(new HTTPError("Profile picture not updated.", 404));
+            }
+
+            res.status(200).json(updatedPicture);
+
+        });
+
+    } catch (error) {
+    return next(new HTTPError("Profile picture not updated.", 404));
+   }
 };
 
 
