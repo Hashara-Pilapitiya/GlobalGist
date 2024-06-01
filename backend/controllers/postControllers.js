@@ -71,8 +71,14 @@ const createPost = async (req, res, next) => {
 
 //Get all posts
 const getPosts = async (req, res, next) => {
-    res.json("Get all posts");
+    try {
+        const posts = await Post.find().sort({ updatedAt: -1 });
+        res.status(200).json(posts);
+    } catch (error) {
+        return next(new HTTPError("Failed to fetch posts", 500));
+    }
 }
+
 
 
 
@@ -83,7 +89,17 @@ const getPosts = async (req, res, next) => {
 
 //Get a post
 const getPost = async (req, res, next) => {
-    res.json("Get a post");
+    try {
+        const post = await Post.findById(req.params.id);
+        if (!post) {
+            return next(new HTTPError("Post not found", 404));
+        }
+
+        res.status(200).json(post);
+        
+    } catch (error) {
+        return next(new HTTPError("Failed to fetch post", 500));
+    }
 }
 
 
