@@ -13,7 +13,7 @@ router.post('/register', registerUser);
 router.post('/login', loginUser);
 router.get('/:id', getUsers);
 router.post('/change-picture',authMiddleware,  changePicture);
-router.patch('/edit-user', editUser);
+router.patch('/edit-user', authMiddleware, editUser);
 router.get('/', getAllUsers);
 
 

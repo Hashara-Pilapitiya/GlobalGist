@@ -169,10 +169,59 @@ const changePicture = async(req, res, next) => {
 
 
 
+
+
+
+
 //Edit user details
-const editUser = async(req, res) => {
-    res.json("Edit user details");
-};
+const editUser = async(req, res, next) => {
+    try {
+        const { name, email, currentPassword, newPassword, newConfirmPassword } = req.body;
+        if (!name || !email || !currentPassword || !newPassword) {
+            return next(new HTTPError("All fields are required.", 422));
+        }
+
+        //Get user from the database
+        const user = await User.findById(req.user.id);
+        if (!user) {
+            return next(new HTTPError("User not found.", 404));
+        }
+
+        //Check if the new email is already taken
+        const emailExists = await User.findOne({
+                email: email.toLowerCase()});
+        if (emailExists && emailExists._id !== req.user.id) {
+                return next(new HTTPError("Email already exists.", 422));
+        }
+
+        //Check if the current password is correct
+        const isMatch = await bcrypt.compare(currentPassword, user.password);
+        if (!isMatch) {
+            return next(new HTTPError("Invalid password.", 422));
+        }
+
+        //Compare new password and confirm new password
+        if (newPassword !== newConfirmPassword) {
+            return next(new HTTPError("Passwords do not match.", 422));
+        }
+
+        //Hash the new password
+        const hashedPassword = await bcrypt.hash(newPassword, 12);
+
+        //Update user details in the database
+        const updatedUser = await User.findByIdAndUpdate(req.user.id, {
+            name,
+            email: email.toLowerCase(),
+            password: hashedPassword
+        }, { new: true });
+
+        res.status(200).json(updatedUser);
+        
+
+   } catch (error) {
+    return next(new HTTPError("User not found.", 404));
+   }
+}
 
 
 
