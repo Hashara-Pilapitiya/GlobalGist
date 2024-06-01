@@ -1,4 +1,5 @@
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 const HTTPError = require("../models/errorModel.js");
 const User = require("../models/userModel.js");
@@ -47,18 +48,61 @@ const registerUser = async(req, res, next) => {
 
 
 
+
+
+
 //Login a user
-const loginUser = async(req, res) => {
-    res.json("Login a user");
+const loginUser = async(req, res, next) => {
+    try {
+        const { email, password } = req.body;
+        if (!email || !password) {
+            return next(new HTTPError("All fields are required.", 422));
+        }
+
+        const newEmail = email.toLowerCase();
+
+        const user = await User.findOne({ email: newEmail });
+        if (!user) {
+            return next(new HTTPError("Invalid email or password.", 422));
+        }
+
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
+            return next(new HTTPError("Invalid email or password.", 422));
+        }
+
+        const { _id: id, name } = user;
+        const token = jwt.sign({ id, name }, process.env.JWT_SECRET, { expiresIn: "1d" });
+
+        res.status(200).json({ token, id, name });
+
+    } catch (error) {
+        return next(new HTTPError("Login failed, please try again", 422));
+    }
 };
 
 
 
 
 
+
+
+
+
 //User profile
-const getUsers = async(req, res) => {
-    res.json("User profile");
+const getUsers = async(req, res, next) => {
+    try {
+        const userId = req.params.id;
+        const user = await User.findById(userId).select("-password");
+        if (!user) {
+            return next(new HTTPError("User not found.", 404));
+        }
+
+        res.status(200).json(user);
+
+    } catch (error) {
+    return next(new HTTPError("User not found.", 404));
+    }   
 };
 
 
@@ -83,9 +127,23 @@ const editUser = async(req, res) => {
 
 
 
+
+
+
+
 //Get all users
-const getAllUsers = async(req, res) => {
-    res.json("Get all users");
+const getAllUsers = async(req, res, next) => {
+    try {
+        const users = await User.find().select("-password");
+        if (!users) {
+            return next(new HTTPError("Users not found.", 404));
+        }
+
+        res.status(200).json(users);
+
+    } catch (error) {
+        return next(new HTTPError("Users not found.", 404));
+    }
 };
 
 
