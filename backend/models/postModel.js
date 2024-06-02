@@ -7,7 +7,7 @@ const postSchema = new Schema({
     },
     category: {
         type: String,
-        enum: ['Technology', 'Health', 'Sport', 'Entertainment', 'Education', 'Business', 'Politics', 'Fashion', 'Food', 'Travel', 'Lifestyle','Agriculture', 'Music', 'Movies', 'Books', 'Science', 'Art', 'History', 'Religion', 'Nature', 'Weather', 'Investment', 'Real Estate', 'Automobile', 'Energy', 'Telecommunication', 'Media', 'Marketing', 'Advertising', 'Banking', 'Insurance', 'E-commerce', , 'Manufacturing', 'Construction', 'Transportation', 'Logistics', 'Hospitality', 'Tourism', 'Gaming', 'Social Media',  'Artificial Intelligence', 'Web Development', 'Mobile Development', 'Desktop Development'], message: '{VALUE} is not supported'
+        enum: ['Technology', 'Health', 'Sport', 'Entertainment', 'Education', 'Business', 'Politics', 'Fashion', 'Food', 'Travel', 'Lifestyle','Agriculture', 'Music', 'Movies', 'Books', 'Science', 'Art', 'History', 'Religion', 'Nature', 'Weather', 'Investment', 'Real Estate'], message: '{VALUE} is not supported'
     },
     description: {
         type: String,
