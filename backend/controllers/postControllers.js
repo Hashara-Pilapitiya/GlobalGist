@@ -170,38 +170,39 @@ const editPost = async (req, res, next) => {
             return next(new HTTPError("All fields are required", 422));
         }
 
-        //Get old post from database
-        const oldPost = await Post.findById(postID);
-        if(!req.user.id === oldPost.creator) {
+       if(!req.user.id === oldPost.creator) {
         if (req.files) {
             updatedPost = await Post.findByIdAndUpdate (postID, {title, category, description}, {new: true});
         } else {
-            
+             //Get old post from database
+            const oldPost = await Post.findById(postID);
+
             //Delete old thumbnail from uploads folder
             fs.unlink(path.join(__dirname, "..", "uploads", oldPost.thumbnail), async (err) => {
                 if (err) {
                     return next(new HTTPError("File upload failed, please try again", 500));
                 }
-            });
 
-            const { thumbnail } = req.files;
+        });
 
-                //Check the file size
-                if (thumbnail.size > 2000000) {
-                    return next(new HTTPError("File size should not be more than 2MB", 400));
-                }
+        //Upload new thumbnail
+        const { thumbnail } = req.files;
 
-                fileName = thumbnail.name;
-                let splittedFileName = fileName.split(".");
-                newFileName = splittedFileName[0]+ uuid() + "." + splittedFileName[splittedFileName.length - 1];
-                thumbnail.mv(path.join(__dirname, "..", "/uploads", newFileName), async (err) => {
-                    if (err) {
-                        return next(new HTTPError("File upload failed, please try again", 500));
-                    }
-                });
-
-                updatedPost = await Post.findByIdAndUpdate (postID, {title, category, description, thumbnail: newFileName}, {new: true});
+        //Check the file size
+        if (thumbnail.size > 2000000) {
+            return next(new HTTPError("File size should not be more than 2MB", 400));
         }
+
+        fileName = thumbnail.name;
+        let splittedFileName = fileName.split(".");
+        newFileName = splittedFileName[0]+ uuid() + "." + splittedFileName[splittedFileName.length - 1];
+        thumbnail.mv(path.join(__dirname, "..", "uploads", newFileName), async (err) => {
+            if (err) {
+                return next(new HTTPError("File upload failed, please try again", 500));
+            }
+        });
+
+        updatedPost = await Post.findByIdAndUpdate (postID, {title, category, description, thumbnail: newFileName}, {new: true});
 
     }
 
@@ -211,8 +212,10 @@ const editPost = async (req, res, next) => {
 
         res.status(200).json(updatedPost);
 
+    } 
+    
     } catch (error) {
-        return next(new HTTPError("Post update failed, please try again", 422));
+        return next(new HTTPError("Failed to update post", 500));
     }
 }
 
