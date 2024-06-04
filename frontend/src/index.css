@@ -117,15 +117,19 @@ section {
     font-weight: 400;
 }
 
-.btn-sm {
+.btn.sm {
     font-size: 0.8rem;
     padding: 0.3rem 0.7rem;
     font-weight: 400;
 }
 
-.btn-danger {
+.btn.danger {
     background: #ff4d4d;
     color: var(--color-white);
+}
+
+.btn.danger:hover {
+    background: #ff0000;
 }
 
 
@@ -351,6 +355,58 @@ footer {
 
 .post__category:hover {
     background: #68dfcb;
+}
+
+
+/* Post Detail Page */
+
+.post__detail {
+    width: var(--form-width);
+    background: var(--color-white);
+    margin-inline: auto;
+    padding: 2rem 0;
+    margin-top: 130px;
+    border-radius: 0.8rem;
+}
+
+.post__detail__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.post__detail__buttons {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.post__detail__buttons span {
+    font-size: 1.1rem;
+}
+
+.post__detail__container h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+}
+
+.post__detail__thumbnail {
+    overflow: hidden;
+    height: 30rem;
+    margin-bottom: -2rem;
+}
+
+.post__detail__thumbnail img {
+    border-radius: 0.8rem;
+}
+
+.post__detail__container p {
+    font-size: 0.9rem;
+    line-height: 1.8;
+    margin-bottom: 2rem;
+    text-align: justify;
 }
 
 
