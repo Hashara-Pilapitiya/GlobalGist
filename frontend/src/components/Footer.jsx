@@ -41,12 +41,6 @@ const Footer = () => {
           <li><Link to='/posts/categories/Investment'>Investment</Link></li>
         </div>
 
-      
-        
-       
-        
-       
-        
       </ul>
 
       <div className='footer__copy'>
