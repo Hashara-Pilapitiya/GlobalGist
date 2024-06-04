@@ -29,6 +29,7 @@ body {
     font-size: 0.9rem;
     line-height: 1.6;
     color: #333;
+    background: var(--primary-color);
 }
 
 img {
@@ -169,6 +170,77 @@ nav {
 
 .nav__toggle-btn {
     display: none;
+}
+
+
+/* Footer */
+
+footer {
+    background: rgb(27, 111, 111);
+    color: var(--color-white);
+    margin-top: 6rem;
+    padding-top: 6rem;
+}
+
+.footer__list a {
+    color: var(--color-white);
+    border: 1px solid var(--color-white);
+    padding: 0.5rem 3rem;
+    border-radius: 0.3rem;
+    transition: var(--transition);
+}
+
+.footer__list .list1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 4rem;
+}
+
+.footer__list .list2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6rem;
+    margin-bottom: 4rem;
+}
+
+.footer__list .list3 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4rem;
+    margin-bottom: 4rem;
+}
+
+.footer__list .list4 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 4rem;
+}
+
+.footer__list .list5 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5rem;
+    margin-bottom: 4rem;
+}
+
+.footer__list a:hover {
+    border: 2px solid black;
+    transform: translateY(-5px);
+}
+
+.footer__copy {
+    text-align: center;
+    border-top: 1px solid var(--color-white);
+    padding: 1rem;
+    font-weight: 300;
+    letter-spacing: 1px;
 }
 
 
