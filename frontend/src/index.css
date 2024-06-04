@@ -12,7 +12,7 @@
     --container-width-md: 92%;
     --form-width: 50%;
 
-    --shadow: 0 2px 5px rgba(3, 78, 66, 0.1);
+    --shadow: 0 1.5rem 2rem rgba(0, 0, 0, 0.1);
     
 }
 
@@ -53,19 +53,19 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-    font-size: 2.5rem;
+    font-size: 2.2rem;
 }
 
 h2 {
-    font-size: 2rem;
+    font-size: 1.9rem;
 }
 
 h3 {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
 }
 
 h4 {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
 }
 
 h5 {
@@ -266,5 +266,92 @@ footer {
     font-weight: 400;
     margin-bottom: 2rem;
 }
+
+
+
+/* Home Page */
+
+.posts__container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4rem;
+}
+
+.post {
+    background: var(--color-white);
+    padding: 1rem;
+    border-radius: 0.8rem;
+    padding-bottom: 2rem;
+    transition: var(--transition);
+    cursor: default;
+}
+
+.post:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow);
+}
+
+.post__thumbnail {
+    overflow: hidden;
+    height: 16rem;
+}
+
+.post__thumbnail img {
+    border-radius: 0.8rem;
+}
+
+.post__content {
+    margin-top: 1.5rem;
+}
+
+.post__content h3 {
+    margin: 1rem 0 0.6rem;
+}
+
+.post__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: 2rem;
+}
+
+.post__author {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.post__author-avatar {
+    aspect-ratio: 1/1;
+    width: 3.5rem;
+    overflow: hidden;
+}
+
+.post__author-avatar img {
+    border-radius: 0.5rem;
+    height: 3rem;
+}
+
+.post__author-details {
+    font-weight: 500;
+}
+
+.post__author-details h4 {
+    font-size: 0.9rem;
+}
+
+.post__category {
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: white;
+    background: var(--secondary-color);
+    padding: 0.4rem 1rem;
+    border-radius: 0.8rem;
+}
+
+.post__category:hover {
+    background: #68dfcb;
+}
+
 
 
