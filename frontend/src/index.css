@@ -410,9 +410,19 @@ footer {
 }
 
 
-/* Author Post Page */
+/* Author Posts Page */
 
 .author__posts__container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4rem;
+}
+
+
+
+/* Category Posts Page */
+
+.category__posts__container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 4rem;
