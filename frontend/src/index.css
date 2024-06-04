@@ -516,6 +516,61 @@ input, select, textarea {
 
 
 
+/* Authors Page */
+
+.center1 {
+    font-size: 2rem;
+    font-weight: 600;
+    text-align: center;
+    padding-top: 5rem;
+    margin-inline: auto;
+    display: block;
+    width: 100%;
+}
+
+.authors__container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 3rem;
+}
+
+.author {
+    background: var(--color-white);
+    padding: 1rem;
+    border-radius: 0.8rem;
+    padding-bottom: 2rem;
+    transition: var(--transition);
+    cursor: default;
+    display: flex;
+    gap: 1rem;
+}
+
+.author:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow);
+}
+
+.author__avatar {
+    aspect-ratio: 1/1;
+    width: 5rem;
+    overflow: hidden;
+}
+
+.author__avatar img {
+    border-radius: 50%;
+    height: 4.8rem;
+}
+
+.author__info h3 {
+    margin-top: 1.2rem;
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+
+}
+
+
+
 
 
 
