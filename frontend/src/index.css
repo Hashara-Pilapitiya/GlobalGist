@@ -101,19 +101,16 @@ section {
 }
 
 .btn:hover {
-    background: #0a5f4f;
+    background: #0c5145;
+    transform: scaleX(1.05);
 }
 
-.btn-primary {
+.btn .primary {
     background: var(--primary-color);
     color: #333;
 }
 
-.btn-primary:hover {
-    background: #a1f0e9;
-}
-
-.btn-secondary {
+.btn .secondary {
     background: var(--secondary-color);
     color: var(--color-white);
     font-size: 0.75rem;
@@ -241,6 +238,33 @@ footer {
     padding: 1rem;
     font-weight: 300;
     letter-spacing: 1px;
+}
+
+
+
+/* Error Page */
+
+.center {
+    text-align: center;
+    padding-top: 5rem;
+    margin-inline: auto;
+    display: block;
+    width: 100%;
+}
+
+.error__page h2 {
+    margin-top: 3rem;
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.error__page span {
+    position: absolute;
+    top: 15.5rem;
+    font-size: 5rem;
+    font-weight: 400;
+    margin-bottom: 2rem;
 }
 
 
