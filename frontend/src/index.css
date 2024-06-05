@@ -722,6 +722,39 @@ input, select, textarea {
 
 
 
+/* Create Post page */
+
+.cerate__post h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.cerate__post .container {
+    width: 300px;
+}
+
+.create__post__form input, select {
+    margin-left: -6rem;
+    width: 560px;
+}
+
+.create__post__form .textarea {
+    margin-left: -6rem;
+    width: 560px;
+}
+
+.create__post__form .choose {
+    width: 210px;
+}
+
+.create {
+    margin-left: 110px;
+}
+
+
+
+
+
 
 
 
