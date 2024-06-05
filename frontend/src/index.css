@@ -571,6 +571,98 @@ input, select, textarea {
 
 
 
+/* User Profile Page */
+
+.profile__container {
+    display: grid;
+    place-items: center;
+    text-align: center;
+}
+
+.profile__details {
+    width: 300px;
+}
+
+.profile__wrapper {
+    width: 15rem;
+    aspect-ratio: 1/1;
+    position: relative;
+    margin-inline: auto;
+    margin-top: 1rem;
+}
+
+.profile__avatar {
+    margin-top: 1rem;
+    margin-left: 40px;
+    width: 230px;
+    border-radius: 50%; 
+    border: 0.8rem solid var(--color-white);
+    overflow: hidden;
+}
+
+.profile__avatar img {
+    height: 200px;
+    object-fit: cover;
+}
+
+.avatar__form {
+    height: 2rem;
+
+}
+
+.avatar__form input {
+    visibility: hidden;
+}
+
+.avatar__form label, .profile__avatar__btn {
+    position: absolute;
+    bottom: 22rem;
+    right: 41rem;
+    font-size: 1.3rem;
+    width: 2.1rem;
+    height: 2.1rem;
+    display: grid;
+    place-items: center;
+    background: var(--secondary-color);
+    color: var(--color-white);
+    border-radius: 50%;
+}
+
+.profile__avatar__btn {
+    cursor: pointer;
+    padding: 6px 0;
+}
+
+.avatar__form label span, .profile__avatar__btn span {
+    font-size: 1.2rem;
+
+}
+
+.profile__details h1 {
+    font-size: 2rem;
+    font-weight: 600;
+
+}
+
+.form .profile__form {
+    margin-top: 3rem;
+}
+
+.profile__details p {
+    margin-left: -420px;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+.profile__form input {
+    margin-left: -50px;
+    width: 400px;
+    padding: 0.6rem 1rem;
+    margin-bottom: 2rem;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+}
+
 
 
 
