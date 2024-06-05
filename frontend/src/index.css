@@ -751,6 +751,12 @@ input, select, textarea {
     margin-left: 110px;
 }
 
+.ql-editor {
+   overflow: hidden;
+   background: var(--color-white);
+   height: 10rem !important;
+}
+
 
 
 
