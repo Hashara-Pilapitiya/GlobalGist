@@ -43,9 +43,9 @@ const UserProfile = () => {
 
           <h1>Hashara Pilapitiya</h1>
 
-          <p className='form__error__message'>This is an error message.</p>
-
           <form className='form profile__form'>
+
+            <p className='form__error__message'>This is an error message.</p>
 
            <input type='text' placeholder='Full Name...' value={name} onChange={e => setName(e.target.value)} /><br />
 
