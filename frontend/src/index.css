@@ -665,6 +665,65 @@ input, select, textarea {
 
 
 
+/* Dashboard Page */
+
+.dashboard__container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.dashboard__post {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    background: var(--color-white);
+    padding: 0.5rem 1.2rem;
+    border-radius: 0.8rem;
+}
+
+.dashboard__post:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow);
+}
+
+.dashboard__post__info {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+}
+
+.dashboard__post__info h5 {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.dashboard__post__thumbnail {
+    width: 5rem;
+    border-radius: 0.8rem;
+    overflow: hidden;
+}
+
+.dashboard__post__actions {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.dashboard__post__actions .view {
+    margin-top: 0.5rem;
+}
+
+.dashboard__post__actions .view span:hover {
+    color: #0c5145;
+    font-size: 1rem;
+    
+}
+
+
+
+
+
 
 
 
