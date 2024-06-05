@@ -1,36 +1,47 @@
-import React from 'react';
+import React , { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Logo from '../assets/logo.png';
 import { FaBars } from "react-icons/fa";
-import { IoMdCloseCircle } from "react-icons/io";
+import { ImCross } from "react-icons/im";
 
 const Header = () => {
+
+  const [showMenu, setShowMenu] = useState(window.innerWidth > 800 ? true : false);
+
+  const closeNavHandler = () => {
+    if(window.innerWidth < 800) {
+      setShowMenu(false);
+    } else {
+      setShowMenu(true);
+    }
+  }
+
   return (
     <nav>
 
       <div className='container nav__container'>
 
-        <Link to='/' className='nav__logo'>
+        <Link to='/' className='nav__logo' onClick={closeNavHandler}>
           <img src={Logo} alt='logo' />
         </Link>
 
-        <ul className='nav__menu'>
+        { showMenu && <ul className='nav__menu'>
           <li className='nav__menu-item'>
-            <Link to='/profile/fe5sdg'>Hashara Pilapitiya</Link>
+            <Link to='/profile/fe5sdg' onClick={closeNavHandler}>Hashara Pilapitiya</Link>
           </li>
           <li className='nav__menu-item'>
-            <Link to='/create'>Create a Post</Link>
+            <Link to='/create' onClick={closeNavHandler}>Create a Post</Link>
           </li>
           <li className='nav__menu-item'>
-            <Link to='/authors'>Authors</Link>
+            <Link to='/authors' onClick={closeNavHandler}>Authors</Link>
           </li>
           <li className='nav__menu-item'>
-            <Link to='/logout'>Log Out</Link>
+            <Link to='/logout'onClick={closeNavHandler}>Log Out</Link>
           </li>
-        </ul>
+        </ul> }
 
-        <button className='nav__toggle-btn'>
-          <IoMdCloseCircle />
+        <button className='nav__toggle-btn' onClick={() => setShowMenu(!showMenu)}>
+          {showMenu ? <ImCross /> : <FaBars/>}
         </button>
 
       </div>
