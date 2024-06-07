@@ -469,10 +469,10 @@ input, select, textarea {
 }
 
 .form__error__message {
+    margin-top: 1rem;
     width: 300%;
     color: red;
     font-size: 0.8rem;
-    margin-bottom: 1rem;
 }
 
 .register__left button {

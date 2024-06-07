@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import SignUp from '../assets/register.jpg';
+import axios from 'axios';
 
 const Register = () => {
 
@@ -8,8 +9,11 @@ const Register = () => {
     name: '',
     email: '',
     password: '',
-    confirmPassword: ''
+    password2: ''
   });
+
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   const changeInputHandler = (e) => {
     setUserData(prevState => {
@@ -19,6 +23,30 @@ const Register = () => {
       }
     }
     );
+  }
+
+  const registerUser = async (e) => {
+    e.preventDefault();
+    setError('');
+
+    try {
+      const response = await axios.post('http://localhost:5000/api/users/register', userData);
+
+
+      const newUser = response.data;
+      console.log(newUser);
+
+      if (!newUser) {
+        setError('Something went wrong. Please try again later.');
+      }
+
+      navigate('/login');
+
+    } catch (error) {
+
+      setError(error.response.data.message);
+
+    }
   }
 
   return (
@@ -33,9 +61,10 @@ const Register = () => {
 
           <div className='register__left'>
 
-            <p className='form__error__message'>This is an error message.</p>
 
-            <form className='form register__form'> 
+            <form className='form register__form' onSubmit={registerUser}> 
+
+                { error && <p className='form__error__message'>{error}</p> }
 
                 <input type='text' placeholder='Name...' name='name' value={userData.name} onChange={changeInputHandler}  />
 
@@ -43,7 +72,7 @@ const Register = () => {
 
                 <input type='password' placeholder='Password...' name='password' value={userData.password} onChange={changeInputHandler}  />
 
-                <input type='password' placeholder='Confirm Password...' name='confirmPassword' value={userData.confirmPassword} onChange={changeInputHandler}  />
+                <input type='password' placeholder='Confirm Password...' name='password2' value={userData.password2} onChange={changeInputHandler}  />
 
                 <button type='submit' className='btn btn primary'>REGISTER</button><br />
 

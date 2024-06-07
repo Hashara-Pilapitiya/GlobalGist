@@ -24,7 +24,7 @@ const registerUser = async(req, res, next) => {
             return next(new HTTPError("Email already exists.", 422));
         }
 
-        if (password.length < 8) {
+        if (password.length < 5) {
             return next(new HTTPError("Password should be at least 6 characters.", 422));
         }
 
