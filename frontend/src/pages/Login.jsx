@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import SignIn from '../assets/login.jpg';
+import axios from 'axios';
+
+import userContext from '../context/userContext.js';
 
 const Login = () => {
 
@@ -8,6 +11,11 @@ const Login = () => {
     email: '',
     password: ''
   });
+
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
+
+  const setCurrentUser  = useContext(userContext);
 
   const changeInputHandler = (e) => {
     setUserData(prevState => {
@@ -17,6 +25,27 @@ const Login = () => {
       }
     }
     );
+  }
+
+  const loginUser = async (e) => {
+    e.preventDefault();
+    setError('');
+
+    try {
+
+      const response = await axios.post('http://localhost:5000/api/users/login', userData);
+
+      const user = await response.data;
+      setCurrentUser(user);
+
+      navigate('/');
+
+    } catch (error) {
+
+      setError(error.response.data.message);
+
+    }
+
   }
 
   return (
@@ -31,9 +60,9 @@ const Login = () => {
 
           <div className='login__left'>
 
-            <p className='form__error__message'>This is an error message.</p>
+            <form className='form login__form' onSubmit={loginUser}> 
 
-            <form className='form login__form'> 
+                { error && <p className='form__error__message'>{error}</p> }
 
                 <input type='text' placeholder='Email...' name='email' value={userData.email} onChange={changeInputHandler} autoFocus />
 
