@@ -1,8 +1,10 @@
-import React , { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React , { useState, useEffect, useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import Avatar from '../assets/avatar1.jpeg';
 import { FaPenToSquare } from "react-icons/fa6";
 import { FaCheck } from "react-icons/fa";
+
+import { UserContext } from '../context/userContext';
 
 const UserProfile = () => {
 
@@ -13,6 +15,17 @@ const UserProfile = () => {
   const [currentpassword, setcurrentPassword] = useState('');
   const [newpassword, setNewPassword] = useState('');
   const [newConfirmpassword, setNewConfirmPassword] = useState('');
+
+  const navigate = useNavigate();
+
+  const { currentUser } = useContext(UserContext);
+  const token = currentUser?.token;
+
+  useEffect(() => {
+    if (!token) {
+      navigate('/login');
+    }
+  }, []);
 
 
   return (
