@@ -2,9 +2,9 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import PostAuthor from './PostAuthor';
 
-const PostItem = ({postID, category, title, desc, authorID, thumbnail}) => {
+const PostItem = ({postID, category, title, description, authorID, thumbnail}) => {
 
-    const shortdesc = desc.length > 145 ? desc.substring(0, 145) + '...' : desc;
+    const shortdesc = description.length > 145 ? description.substring(0, 145) + '...' : description;
 
     const postTitle = title.length > 30 ? title.substring(0, 30) + '...' : title;
 
