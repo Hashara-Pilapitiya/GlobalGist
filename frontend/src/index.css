@@ -759,6 +759,26 @@ input, select, textarea {
 
 
 
+/* Loader */
+
+.loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    background: var(--primary-color);
+    place-items: center;
+}
+
+.loader__image {
+    width: 4.5rem;
+    aspect-ratio: 1/1;
+}
+
+
+
 
 
 
