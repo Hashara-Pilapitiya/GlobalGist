@@ -1,5 +1,6 @@
 import React, { useEffect, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
+import { FaTrashAlt } from "react-icons/fa";
 
 import { UserContext } from '../context/userContext';
 
@@ -17,7 +18,7 @@ const DeletePost = () => {
   }, []);
 
   return (
-    <div>DeletePost</div>
+    <Link className='btn sm danger'><span><FaTrashAlt /></span></Link>
   )
 }
 
