@@ -33,7 +33,7 @@ const CategoryPosts = () => {
 
     fetchPosts();
 
-  }, [])
+  }, [category])
 
   if(isloading) {
     return <Loader />
