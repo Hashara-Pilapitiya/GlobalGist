@@ -1,13 +1,26 @@
-import React , { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React , { useState, useEffect, useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { DummyPosts } from '../data';
 import { GrView } from "react-icons/gr";
 import { FaPenToSquare } from "react-icons/fa6";
 import { FaTrashAlt } from "react-icons/fa";
 
+import { UserContext } from '../context/userContext';
+
 const Dashboard = () => {
 
   const [posts, setPosts] = useState(DummyPosts);
+
+  const navigate = useNavigate();
+
+  const { currentUser } = useContext(UserContext);
+  const token = currentUser?.token;
+
+  useEffect(() => {
+    if (!token) {
+      navigate('/login');
+    }
+  }, []);
 
   return (
     
