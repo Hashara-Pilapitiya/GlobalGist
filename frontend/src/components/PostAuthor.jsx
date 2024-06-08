@@ -2,6 +2,14 @@ import React, { useState, useEffect } from 'react';
 import {Link} from 'react-router-dom';
 import Avatar from '../assets/avatar1.jpeg';
 import axios from 'axios';
+import ReactTimeAgo from 'react-time-ago';
+import TimeAgo from 'javascript-time-ago';
+
+import en from 'javascript-time-ago/locale/en.json';
+import ru from 'javascript-time-ago/locale/ru.json';
+
+TimeAgo.addDefaultLocale(en);
+TimeAgo.addDefaultLocale(ru);
 
 const PostAuthor = ({authorID, createdAt}) => {
 
@@ -25,8 +33,6 @@ const PostAuthor = ({authorID, createdAt}) => {
 
   }, [])
 
-  console.log(author);
-
   return ( 
     <Link to={`/posts/users/fr3fdg`} className='post__author'>
         <div className='post__author-avatar'>
@@ -34,8 +40,8 @@ const PostAuthor = ({authorID, createdAt}) => {
         </div>
 
         <div className='post__author-details'>
-            <h4>By: Sadun</h4> 
-            <small>Just Now</small>
+            <h4>By: {author?.name}</h4> 
+            <small><ReactTimeAgo date={new Date(createdAt)} locale='en-US' /></small>
         </div>
     </Link>
   )

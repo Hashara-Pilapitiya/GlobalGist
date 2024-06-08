@@ -146,7 +146,7 @@ const changePicture = async(req, res, next) => {
         fileName = picture.name;
         let splittedFileName = fileName.split(".");
         let newFileName = "." + splittedFileName[0] + uuid() + splittedFileName[splittedFileName.length - 1];
-        picture.mv(path.join(__dirname, '..', 'uploads', newFileName), async(err) => {
+        picture.mv(path.join(__dirname, '..', '/uploads', newFileName), async(err) => {
             if (err) {
                 return next(new HTTPError(err.message, 404));
             }
