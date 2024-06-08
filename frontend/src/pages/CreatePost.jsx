@@ -85,7 +85,7 @@ const CreatePost = () => {
 
         <h2>Create Post</h2>
 
-        { error && <p className='error'>{error}</p> }
+        { error && <p className='error' style={{color: "red", marginLeft: -95, marginBottom: 10}}>{error}</p> }
 
         <form className='form create__post__form' onSubmit={createPost}>
 
