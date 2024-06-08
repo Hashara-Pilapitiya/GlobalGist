@@ -31,7 +31,7 @@ const Header = () => {
 
         { currentUser?.id && showMenu && <ul className='nav__menu'>
           <li className='nav__menu-item'>
-            <Link to='/profile/fe5sdg' onClick={closeNavHandler}>Hashara Pilapitiya</Link>
+            <Link to='/profile/fe5sdg' onClick={closeNavHandler}>{currentUser?.name}</Link>
           </li>
           <li className='nav__menu-item'>
             <Link to='/create' onClick={closeNavHandler}>Create a Post</Link>

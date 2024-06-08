@@ -10,8 +10,8 @@ import axios from 'axios';
 const CreatePost = () => {
 
   const [title, setTitle] = useState('');
-  const [category, setCategory] = useState('Uncategorized');
-  const [desc, setDesc] = useState('');
+  const [category, setCategory] = useState('');
+  const [description, setDescription] = useState('');
   const [thumbnail, setThumbnail] = useState('');
 
   const [error, setError] = useState('');
@@ -49,25 +49,25 @@ const CreatePost = () => {
     'Technology', 'Health', 'Sport', 'Entertainment', 'Education', 'Business', 'Politics', 'Fashion', 'Food', 'Travel', 'Lifestyle','Agriculture', 'Music', 'Movies', 'Books', 'Science', 'Art', 'History', 'Religion', 'Nature', 'Weather', 'Investment', 'Real Estate'
   ]
 
-  const createPost = async e => {
+  const createPost = async (e) => {
     e.preventDefault();
 
     const postData = new FormData();
     postData.set('title', title);
     postData.set('category', category);
-    postData.set('desc', desc);
+    postData.set('description', description);
     postData.set('thumbnail', thumbnail);
 
     try {
-      const response = await axios.post('http://localhost:5000/api/posts', postData, {
+      const response = await axios.post('http://localhost:5000/api/posts/create', postData, {
         withCredentials: true,
         headers: {
           'Authorization': `Bearer ${token}`
         }
       });
 
-      if (response.status == 201) {
-        return navigate('/');
+      if (response.status === 201) {
+         navigate('/');
       }
 
     } catch (error) {
@@ -102,7 +102,7 @@ const CreatePost = () => {
 
           <br /><br />
 
-          <ReactQuill theme='snow' value={desc} onChange={setDesc} modules={modules} formats={formats} placeholder='Description...' className='textarea'/>
+          <ReactQuill theme='snow' value={description} onChange={setDescription} modules={modules} formats={formats} placeholder='Description...' className='textarea'/>
 
           <br />
 
