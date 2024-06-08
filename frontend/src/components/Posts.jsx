@@ -41,12 +41,14 @@ const Posts = () => {
       return <Loader />
     }
 
+    console.log(posts);
+
   return (
     
     <section className="posts" style={{marginTop: 130}}>
         {posts.length > 0 ? <div className='container posts__container'>
             {
-                posts.map(({id, thumbnail, category, title, description, authorID}) => <PostItem key={id} postID={id} thumbnail={thumbnail} category={category} title={title} description={description} authorID={authorID} />)
+                posts.map(({_id: id, thumbnail, category, title, description, creator, createdAt}) => <PostItem key={id} postID={id} thumbnail={thumbnail} category={category} title={title} description={description} authorID={creator} createdAt={createdAt} />)
             }
         </div> : <h2 className='center'>No Posts Found!</h2>}
     </section>
