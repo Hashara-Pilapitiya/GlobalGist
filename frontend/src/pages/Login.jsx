@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import SignIn from '../assets/login.jpg';
 import axios from 'axios';
 
-import userContext from '../context/userContext.js';
+import {UserContext} from '../context/userContext.js';
 
 const Login = () => {
 
@@ -15,7 +15,8 @@ const Login = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const setCurrentUser  = useContext(userContext);
+ 
+  const {setCurrentUser}  = useContext(UserContext);
 
   const changeInputHandler = (e) => {
     setUserData(prevState => {
@@ -42,7 +43,7 @@ const Login = () => {
 
     } catch (error) {
 
-      setError(error.response.data.message);
+      setError(error.message);
 
     }
 

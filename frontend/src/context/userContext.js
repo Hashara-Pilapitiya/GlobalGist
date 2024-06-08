@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 
-export const UseContext = createContext();
+export const UserContext = createContext();
 
 const UserProvider = ({ children }) => {
     const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem('user')));
@@ -10,9 +10,9 @@ const UserProvider = ({ children }) => {
     }, [currentUser]);
 
     return (
-        <UseContext.Provider value={{ currentUser, setCurrentUser }}>
+        <UserContext.Provider value={{ currentUser, setCurrentUser }}>
             {children}
-        </UseContext.Provider>
+        </UserContext.Provider>
     );
 }
 
