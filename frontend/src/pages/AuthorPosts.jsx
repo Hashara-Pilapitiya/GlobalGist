@@ -33,7 +33,7 @@ const AuthorPosts = () => {
 
     fetchPosts();
 
-  }, [])
+  }, [id])
 
   if(isloading) {
     return <Loader />
