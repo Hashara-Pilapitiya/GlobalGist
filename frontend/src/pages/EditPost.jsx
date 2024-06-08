@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import axios from 'axios';
 
 import { UserContext } from '../context/userContext';
 
@@ -12,7 +13,11 @@ const EditPost = () => {
   const [desc, setDesc] = useState('');
   const [thumbnail, setThumbnail] = useState('');
 
+  const [error, setError] = useState('');
+
   const navigate = useNavigate();
+
+  const { id } = useParams(); 
 
   const { currentUser } = useContext(UserContext);
   const token = currentUser?.token;
@@ -45,6 +50,58 @@ const EditPost = () => {
     'Technology', 'Health', 'Sport', 'Entertainment', 'Education', 'Business', 'Politics', 'Fashion', 'Food', 'Travel', 'Lifestyle','Agriculture', 'Music', 'Movies', 'Books', 'Science', 'Art', 'History', 'Religion', 'Nature', 'Weather', 'Investment', 'Real Estate'
   ]
 
+  useEffect(() => {
+    const getPost = async () => {
+
+      try { 
+
+      const response = await axios.get(`http://localhost:5000/api/posts/${id}`);
+
+      setTitle(response.data.title);
+      setDesc(response.data.description);
+
+    } catch (error) {
+
+      console.log(error);
+
+    }
+
+  }
+
+    getPost();
+
+
+  }, [id]);
+
+  const editPost = async (e) => {
+    e.preventDefault();
+
+    const postData = new FormData();
+    postData.set('title', title);
+    postData.set('category', category);
+    postData.set('description', desc);
+    postData.set('thumbnail', thumbnail);
+
+    try {
+      const response = await axios.patch(`http://localhost:5000/api/posts/${id}`, postData, {
+        withCredentials: true,
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+
+      if (response.status === 200) {
+         navigate('/');
+      }
+
+    } catch (error) {
+
+      setError(error.message);
+
+    }
+
+  }
+
   return (
     
     <section className='cerate__post' style={{marginTop: 130}}>
@@ -52,11 +109,11 @@ const EditPost = () => {
 
         <h2>Edit Post</h2>
 
-        <p className='form__error__message'>
-          This is an error message.
-        </p>
+        { error && <p className='form__error__message' style={{marginLeft: -95, marginBottom: 10}}>
+          {error}
+        </p> }
 
-        <form className='form create__post__form'>
+        <form className='form create__post__form' onSubmit={editPost}>
 
           <input type='text' value={title} placeholder='Title...' onChange={e => setTitle(e.target.value)} autoFocus /><br /><br />
 
