@@ -5,12 +5,16 @@ import { useNavigate } from 'react-router-dom';
 
 import { UserContext } from '../context/userContext';
 
+import axios from 'axios';
+
 const CreatePost = () => {
 
   const [title, setTitle] = useState('');
   const [category, setCategory] = useState('Uncategorized');
   const [desc, setDesc] = useState('');
   const [thumbnail, setThumbnail] = useState('');
+
+  const [error, setError] = useState('');
 
   const navigate = useNavigate();
 
@@ -45,6 +49,35 @@ const CreatePost = () => {
     'Technology', 'Health', 'Sport', 'Entertainment', 'Education', 'Business', 'Politics', 'Fashion', 'Food', 'Travel', 'Lifestyle','Agriculture', 'Music', 'Movies', 'Books', 'Science', 'Art', 'History', 'Religion', 'Nature', 'Weather', 'Investment', 'Real Estate'
   ]
 
+  const createPost = async e => {
+    e.preventDefault();
+
+    const postData = new FormData();
+    postData.set('title', title);
+    postData.set('category', category);
+    postData.set('desc', desc);
+    postData.set('thumbnail', thumbnail);
+
+    try {
+      const response = await axios.post('http://localhost:5000/api/posts', postData, {
+        withCredentials: true,
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+
+      if (response.status == 201) {
+        return navigate('/');
+      }
+
+    } catch (error) {
+
+      setError(error.message);
+
+    }
+
+  }
+
   return (
     
     <section className='cerate__post' style={{marginTop: 130}}>
@@ -52,11 +85,9 @@ const CreatePost = () => {
 
         <h2>Create Post</h2>
 
-        <p className='form__error__message'>
-          This is an error message.
-        </p>
+        { error && <p className='error'>{error}</p> }
 
-        <form className='form create__post__form'>
+        <form className='form create__post__form' onSubmit={createPost}>
 
           <input type='text' value={title} placeholder='Title...' onChange={e => setTitle(e.target.value)} autoFocus /><br /><br />
 
