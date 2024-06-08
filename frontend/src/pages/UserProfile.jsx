@@ -34,7 +34,7 @@ const UserProfile = () => {
 
       <div className='container profile__container'>
 
-        <Link to={`/myposts/se4567t`} className='btn'>My Posts</Link>
+        <Link to={`/myposts/${currentUser.id}`} className='btn'>My Posts</Link>
 
         <div className='profile__details'>
           <div className='avatar__wrapper'>
