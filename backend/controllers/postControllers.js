@@ -19,7 +19,7 @@ const createPost = async (req, res, next) => {
         const { thumbnail } = req.files;
 
         //Check the file size
-        if (thumbnail.size > 2000000) {
+        if (thumbnail.size > 20000000) {
             return next(new HTTPError("File size should not be more than 2MB", 400));
         }
 

@@ -43,7 +43,7 @@ const Login = () => {
 
     } catch (error) {
 
-      setError(error.message);
+      setError(error.response.data.message);
 
     }
 

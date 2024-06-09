@@ -66,13 +66,13 @@ const CreatePost = () => {
         }
       });
 
-      if (response.status === 201) {
+      if (response.status == 201) {
          navigate('/');
       }
 
     } catch (error) {
 
-      setError(error.message);
+      setError(error.response.data.message);
 
     }
 

@@ -98,7 +98,7 @@ const UserProfile = () => {
           }
         });
 
-        if (response.status === 200) {
+        if (response.status == 200) {
           navigate('/logout');
         }
 
@@ -141,7 +141,7 @@ const UserProfile = () => {
 
           </div>
 
-          <h1>{currentUser.name}</h1>
+          <h1 style={{marginBottom: 18}}>{currentUser.name}</h1>
 
           <form className='form profile__form' onSubmit={updateUserDetails}>
 
