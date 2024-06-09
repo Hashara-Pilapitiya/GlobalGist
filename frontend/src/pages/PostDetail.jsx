@@ -3,7 +3,6 @@ import PostAuthor from '../components/PostAuthor';
 import { Link } from 'react-router-dom';
 import { FaPenToSquare } from "react-icons/fa6";
 import { FaTrashAlt } from "react-icons/fa";
-import Thumnail from '../assets/agriculture.jpeg';
 
 import { UserContext } from '../context/userContext';
 import { useParams } from 'react-router-dom';
