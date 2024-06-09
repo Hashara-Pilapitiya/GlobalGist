@@ -3,18 +3,23 @@ import { Link, useNavigate } from 'react-router-dom';
 import Avatar from '../assets/avatar1.jpeg';
 import { FaPenToSquare } from "react-icons/fa6";
 import { FaCheck } from "react-icons/fa";
+import axios from 'axios';
 
 import { UserContext } from '../context/userContext';
 
 const UserProfile = () => {
 
-  const [avatar, setAvatar] = useState(Avatar);
+  const [picture, setPicture] = useState('');
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [currentpassword, setcurrentPassword] = useState('');
   const [newpassword, setNewPassword] = useState('');
   const [newConfirmpassword, setNewConfirmPassword] = useState('');
+
+  const [isAvatarTouched, setIsAvatarTouched] = useState(false);
+
+  const [error, setError] = useState('');
 
   const navigate = useNavigate();
 
@@ -26,6 +31,86 @@ const UserProfile = () => {
       navigate('/login');
     }
   }, []);
+
+
+  useEffect(() => {
+    const getUser = async () => {
+      const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/users/${currentUser.id}`, {
+        withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      
+      const { name, email, picture } = response.data;
+      setName(name);
+      setEmail(email);
+      setPicture(picture);
+    }
+
+    getUser();
+
+  }, []);
+
+
+  const changeAvatarHandler = () => {
+    setIsAvatarTouched(false);
+
+    try {
+
+      const postData = new FormData();
+      postData.set('avatar', picture);
+
+      const response =  axios.post(`${process.env.REACT_APP_API_URL}/users/change-picture`, postData, {
+        withCredentials: true,
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${token}`
+        }
+      });
+
+      setPicture(response?.data.picture);
+
+
+    } catch (error) {
+
+      console.log(error);
+
+    }
+  }
+
+  const updateUserDetails = async (e) => {
+    e.preventDefault();
+
+    try {
+
+      const userData = new FormData();
+      userData.set('name', name);
+      userData.set('email', email);
+      userData.set('currentpassword', currentpassword);
+      userData.set('newpassword', newpassword);
+      userData.set('newConfirmpassword', newConfirmpassword);
+
+      const response = await axios.patch(`${process.env.REACT_APP_BASE_URL}/users/edit-user`, {
+          withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+
+        if (response.status === 200) {
+          navigate('/logout');
+        }
+
+
+    } catch (error) {
+
+      console.log(error);
+
+    }
+
+  }
+
 
 
   return (
@@ -40,25 +125,27 @@ const UserProfile = () => {
           <div className='avatar__wrapper'>
 
             <div className='profile__avatar'>
-              <img src={avatar} alt='avatar' />
+              <img src={`${process.env.REACT_APP_ASSETS_URL}/uploads/${picture}`} alt='' /> 
+
+              {/* <img src={avatar} alt='' /> */}
             </div>
 
             <form className='avatar__form'>
 
-              <input type='file' id='avatar' name='avatar' accept='png, jpg, jpeg' onChange={e => setAvatar(e.target.files[0])} />
-              <label htmlFor='avatar'><span><FaPenToSquare /></span></label>
+              <input type='file' id='avatar' name='avatar' accept='png, jpg, jpeg' onChange={e => setPicture(e.target.files[0])} />
+              <label htmlFor='avatar' onClick={() => setIsAvatarTouched(true)}><span style={{cursor: 'pointer'}}><FaPenToSquare /></span></label>
 
             </form>
 
-            <button className='profile__avatar__btn'><span><FaCheck /></span></button> 
+            { isAvatarTouched && <button className='profile__avatar__btn' onClick={changeAvatarHandler}><span><FaCheck /></span></button> }
 
           </div>
 
-          <h1>Hashara Pilapitiya</h1>
+          <h1>{currentUser.name}</h1>
 
-          <form className='form profile__form'>
+          <form className='form profile__form' onSubmit={updateUserDetails}>
 
-            <p className='form__error__message'>This is an error message.</p>
+            { error && <p className='form__error__message'>{error}</p> }
 
            <input type='text' placeholder='Full Name...' value={name} onChange={e => setName(e.target.value)} /><br />
 
